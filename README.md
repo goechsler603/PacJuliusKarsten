@@ -163,7 +163,7 @@ O sistema deve oferecer um link para recuperação de senha na tela de login.
 
 O link deve enviar um email com instruções para redefinir a senha.
 
-Requisitos Não Funcionais (RNF)
+## Requisitos Não Funcionais (RNF)
 
 ### RNF01 – Interface Responsiva
 
