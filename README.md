@@ -229,7 +229,9 @@ Sessões inativas por mais de 30 minutos devem ser encerradas automaticamente po
 
 ## Tabela relacional de banco de dados
 
-![image](https://github.com/user-attachments/assets/615c411b-97c0-4bd8-a307-eaa35f39c438)
+![image](https://github.com/user-attachments/assets/dc2fbc11-04c0-40c9-b468-dd2eea3c9f38)
+
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
