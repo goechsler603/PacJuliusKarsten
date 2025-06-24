@@ -346,7 +346,7 @@ Com base no CMMI:
 
 ### 3.1. Modelos de processos aplicados 
 
-###3.1.1. Gerenciamento de Requisitos 
+### 3.1.1. Gerenciamento de Requisitos 
 
 Como será implementado: 
 
@@ -412,9 +412,7 @@ Rastreamento de Alterações: Cada alteração no código e nos documentos será
 
 Com base nos processos que vamos aplicar no nosso projeto, ele se enquadraria no nível 2: Processos são planejados, executados e monitorados de maneira controlada. 
 
- 	O CMMI tem como um de seus princípios a melhoria contínua, e para avançar para o Nível 3 do CMMI será necessário o aprimoramento principalmente em 2 pontos:  
-
- 
+O CMMI tem como um de seus princípios a melhoria contínua, e para avançar para o Nível 3 do CMMI será necessário o aprimoramento principalmente em 2 pontos:  
 
 1. Estabelecer métricas claras para a qualidade do software e tempo de resposta do sistema. E utilizar ferramentas como o Google analytics para avaliar essas métricas. 
 
