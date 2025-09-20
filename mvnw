@@ -19,7 +19,11 @@
 # ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
+<<<<<<< HEAD
 # Apache Maven Wrapper startup batch script, version 3.3.3
+=======
+# Apache Maven Wrapper startup batch script, version 3.3.4
+>>>>>>> 24543bf (Adicao da clase usuario)
 #
 # Optional ENV vars
 # -----------------

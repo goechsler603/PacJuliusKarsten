@@ -5,10 +5,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
+<<<<<<< HEAD
         <version>3.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.example</groupId>
+=======
+        <version>3.5.6</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.pac</groupId>
+>>>>>>> 24543bf (Adicao da clase usuario)
     <artifactId>PacJulius</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>PacJulius</name>
@@ -32,10 +39,13 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+<<<<<<< HEAD
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+=======
+>>>>>>> 24543bf (Adicao da clase usuario)
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
