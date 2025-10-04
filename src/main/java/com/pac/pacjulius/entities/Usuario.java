@@ -14,6 +14,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Usuario implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

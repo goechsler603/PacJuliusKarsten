@@ -27,11 +27,11 @@ public class UsuarioService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public Usuario Insert(Usuario usuario) {
+    public Usuario insert(Usuario usuario) {
         return repository.save(usuario);
     }
 
-    public void Delete(Long id) {
+    public void delete (Long id) {
         repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         try {
             repository.deleteById(id);
@@ -40,7 +40,7 @@ public class UsuarioService {
         }
     }
 
-    public Usuario Update(Usuario obj, Long id) {
+    public Usuario update(Usuario obj, Long id) {
         repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
             Usuario entidade =repository.findById(id).get();
             updateData(entidade, obj);
