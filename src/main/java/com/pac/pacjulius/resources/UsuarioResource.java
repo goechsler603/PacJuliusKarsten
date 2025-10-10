@@ -12,12 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value ="/users")
-@Resource
-public class UsuarioRepository {
+public class UsuarioResource {
 
     private final UsuarioService service;
 
-    public UsuarioRepository(UsuarioService service) {
+    public UsuarioResource(UsuarioService service) {
         this.service = service;
     }
 
