@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <img class="logo" src="bandeira.png" alt="">
+        <h3 class="escola">E.E.B Julius<br>Karsten</h3>
+
+        <nav>
+            <ul>
+                <li><a href="">🏅 Esporte</a></li>
+                <li><a href="">🖊 Expediente</a></li>
+                <li><a href="">💻 Informática</a></li>
+                <li><a href="">🌐 Jogos</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+
+        <!-- CARDS -->
+        <section class="cards">
+            <div class="card card-green">
+                <h4>Produtos em Estoque</h4>
+                <p class="valor" id="totalProdutos">0</p>
+            </div>
+
+            <div class="card card-red">
+                <h4>Produtos com Estoque Baixo</h4>
+                <p class="valor" id="estoqueBaixo">0</p>
+            </div>
+
+            <div class="card card-white">
+                <h4>Entradas</h4>
+                <p class="valor orange" id="entradasTotal">0</p>
+            </div>
+
+            <div class="card card-pink">
+                <h4>Saídas</h4>
+                <p class="valor red" id="saidasTotal">0</p>
+            </div>
+        </section>
+
+        <!-- BOTÕES -->
+        <section class="buttons">
+            <button id="novoItem" class="btn orange">✚ Novo Item</button>
+            <button id="btnEntrada" class="btn orange">⬇ Entrada Material</button>
+            <button id="btnSaida" class="btn orange">⬆ Saída Material</button>
+        </section>
+
+        <!-- ======================= -->
+        <!-- MODAL: NOVO ITEM -->
+        <!-- ======================= -->
+        <div id="modalNovoItem" class="modal">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2>Criar Novo Item</h2>
+                    <span id="closeModal" class="close">✕</span>
+                </div>
+
+                <form id="formItem">
+
+                    <label>Nome do item</label>
+                    <input id="nomeItem" type="text" placeholder="Ex: Bola de vôlei">
+
+                    <label>Categoria do item</label>
+                    <div class="categoria">
+                        <label><input type="radio" name="cat" value="Esporte"> Esporte</label>
+                        <label><input type="radio" name="cat" value="Expediente"> Expediente</label>
+                        <label><input type="radio" name="cat" value="Informática"> Informática</label>
+                        <label><input type="radio" name="cat" value="Jogos"> Jogos</label>
+                    </div>
+
+                    <label>Local de armazenamento</label>
+                    <input id="localItem" type="text" placeholder="Ginásio">
+
+                    <label>Quantidade</label>
+                    <input id="quantidadeItem" type="number" placeholder="Ex: 2">
+
+                    <label>Quantidade mínima</label>
+                    <input id="minimoItem" type="number" placeholder="Ex: 1">
+
+                    <button type="button" class="btn-cadastrar" onclick="cadastrarItem()">Cadastrar</button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- MODAL: ENTRADA MATERIAL -->
+        <!-- ======================= -->
+        <div id="modalEntrada" class="modal">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2>Entrada de Material</h2>
+                    <span id="closeEntrada" class="close">✕</span>
+                </div>
+
+                <form>
+                    <label>Selecionar Item</label>
+                    <select id="entradaItemSelect" class="select-item"></select>
+
+                    <label>Quantidade recebida</label>
+                    <input id="entradaQuantidade" type="number">
+
+                    <label>Data</label>
+                    <input id="entradaData" type="date">
+
+                    <div class="botoes-modal">
+                        <button type="submit" class="btn-cadastrar">Confirmar</button>
+                        <button type="button" class="btn-cancelar" id="cancelEntrada">Cancelar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- MODAL: SAÍDA MATERIAL -->
+        <!-- ======================= -->
+        <div id="modalSaida" class="modal">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2>Saída de Material</h2>
+                    <span id="closeSaida" class="close">✕</span>
+                </div>
+
+                <form>
+                    <label>Selecionar Item</label>
+                    <select id="saidaItemSelect"></select>
+
+                    <label>Quantidade</label>
+                    <input id="saidaQuantidade" type="number">
+
+                    <label>Data</label>
+                    <input id="saidaData" type="date">
+
+                    <div class="botoes-modal">
+                        <button type="submit" class="btn-cadastrar">Confirmar</button>
+                        <button type="button" class="btn-cancelar" id="cancelSaida">Cancelar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- MODAL: EDITAR ITEM -->
+        <!-- ======================= -->
+        <div id="modalEditar" class="modal">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2>Editar Item</h2>
+                    <span id="closeEditar" class="close">✕</span>
+                </div>
+
+                <form>
+                    <label>Quantidade</label>
+                    <input type="number">
+
+                    <label>Última entrada</label>
+                    <input type="date">
+
+                    <label>Quantidade mínima</label>
+                    <input type="number">
+
+                    <div class="botoes-modal">
+                        <button type="button" class="btn-cadastrar">Salvar</button>
+                        <button type="button" class="btn-cancelar" id="cancelEditar">Cancelar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- TABELA -->
+        <!-- ======================= -->
+        <section class="tabela">
+            <table id="tabelaEstoque">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Última Entrada</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabela"></tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- ======================= -->
+    <!-- JAVASCRIPT CORRIGIDO   -->
+    <!-- ======================= -->
+
+    <script>
+
+        // =======================================================
+        // FUNÇÃO: ADICIONAR LINHA NA TABELA
+        // =======================================================
+        function adicionarLinha(item) {
+            const tabela = document.getElementById("corpoTabela");
+
+            const linha = document.createElement("tr");
+            linha.innerHTML = `
+                <td>${item.nome}</td>
+                <td>${item.quantidade}</td>
+                <td>${item.ultimaEntrada}</td>
+                <td class="btn-editar" style="cursor:pointer">✏</td>
+            `;
+
+            // CLique no botão de editar
+            linha.querySelector(".btn-editar").onclick = () => {
+                document.getElementById("modalEditar").style.display = "flex";
+            };
+
+            tabela.appendChild(linha);
+        }
+
+        // =======================================================
+        // CADASTRAR ITEM
+        // =======================================================
+        async function cadastrarItem() {
+
+            const nome = document.getElementById("nomeItem").value;
+            const local = document.getElementById("localItem").value;
+            const qtd = document.getElementById("quantidadeItem").value;
+            const minimo = document.getElementById("minimoItem").value;
+            const cat = document.querySelector("input[name='cat']:checked")?.value;
+
+            if (!nome || !local || !qtd || !minimo || !cat) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+
+            const item = {
+                nome: nome,
+                categoria: cat,
+                localArmazenamento: local,
+                quantidade: Number(qtd),
+                quantidadeMinima: Number(minimo),
+                ultimaEntrada: new Date().toISOString().split("T")[0]
+            };
+
+            const resposta = await fetch("http://localhost:8080/api/items", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(item)
+            });
+
+            if (resposta.ok) {
+                const itemCriado = await resposta.json();
+                adicionarLinha(itemCriado);
+
+                document.getElementById("modalNovoItem").style.display = "none";
+                document.getElementById("formItem").reset();
+                alert("Item cadastrado!");
+            } else {
+                alert("Erro ao salvar item!");
+            }
+        }
+
+        // =======================================================
+        // CARREGAR ITENS AO ABRIR A PÁGINA
+        // =======================================================
+        async function carregarTabela() {
+            const resposta = await fetch("http://localhost:8080/api/items");
+            const lista = await resposta.json();
+            lista.forEach(adicionarLinha);
+        }
+
+        carregarTabela();
+
+        // =======================================================
+        // ABRIR / FECHAR MODAIS
+        // =======================================================
+        const modalNovo = document.getElementById("modalNovoItem");
+        document.getElementById("novoItem").onclick = () => modalNovo.style.display = "flex";
+        document.getElementById("closeModal").onclick = () => modalNovo.style.display = "none";
+
+        const modalEntrada = document.getElementById("modalEntrada");
+        document.getElementById("btnEntrada").onclick = () => modalEntrada.style.display = "flex";
+        document.getElementById("closeEntrada").onclick = () => modalEntrada.style.display = "none";
+        document.getElementById("cancelEntrada").onclick = () => modalEntrada.style.display = "none";
+
+        const modalSaida = document.getElementById("modalSaida");
+        document.getElementById("btnSaida").onclick = () => modalSaida.style.display = "flex";
+        document.getElementById("closeSaida").onclick = () => modalSaida.style.display = "none";
+        document.getElementById("cancelSaida").onclick = () => modalSaida.style.display = "none";
+
+        const modalEditar = document.getElementById("modalEditar");
+        document.getElementById("closeEditar").onclick = () => modalEditar.style.display = "none";
+        document.getElementById("cancelEditar").onclick = () => modalEditar.style.display = "none";
+
+        // FECHAR MODAL CLICANDO FORA
+        window.onclick = (e) => {
+            if (e.target === modalNovo) modalNovo.style.display = "none";
+            if (e.target === modalEntrada) modalEntrada.style.display = "none";
+            if (e.target === modalSaida) modalSaida.style.display = "none";
+            if (e.target === modalEditar) modalEditar.style.display = "none";
+        };
+
+    </script>
+
+</body>
+
+</html>
