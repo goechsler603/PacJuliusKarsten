@@ -22,11 +22,14 @@ public class Aplicacao {
 class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     public String nome;
     public String categoria;
     public String localArmazenamento;
+
     public Integer quantidade;
     public Integer quantidadeMinima;
+
     public String ultimaEntrada;
 }
 
@@ -39,12 +42,52 @@ interface ItemRepository extends JpaRepository<Item, Long> {}
 @Service
 class ItemService {
     private final ItemRepository repo;
-    ItemService(ItemRepository r){ this.repo = r; }
 
-    public List<Item> listar(){ return repo.findAll(); }
-    public Item salvar(Item i){ return repo.save(i); }
-    public Optional<Item> buscar(Long id){ return repo.findById(id); }
-    public void deletar(Long id){ repo.deleteById(id); }
+    ItemService(ItemRepository r){
+        this.repo = r;
+    }
+
+    public List<Item> listar(){
+        return repo.findAll();
+    }
+
+    public Item salvar(Item i){
+        return repo.save(i);
+    }
+
+    public Optional<Item> buscar(Long id){
+        return repo.findById(id);
+    }
+
+    public void deletar(Long id){
+        repo.deleteById(id);
+    }
+
+    /* ============= ENTRADA DE MATERIAL ============= */
+
+    public Item entrada(Long id, int qtd){
+        Item item = repo.findById(id).orElseThrow();
+
+        item.quantidade += qtd;
+        item.ultimaEntrada = new Date().toInstant().toString().substring(0, 10);
+
+        return repo.save(item);
+    }
+
+    /* ============= SAÍDA DE MATERIAL ============= */
+
+    public Item saida(Long id, int qtd){
+        Item item = repo.findById(id).orElseThrow();
+
+        if (item.quantidade - qtd < 0){
+            throw new RuntimeException("Quantidade insuficiente em estoque!");
+        }
+
+        item.quantidade -= qtd;
+
+        return repo.save(item);
+    }
+
 }
 
 /* ==================== CONTROLLER ==================== */
@@ -56,7 +99,11 @@ class ItemController {
 
     private final ItemService service;
 
-    ItemController(ItemService s){ this.service = s; }
+    ItemController(ItemService s){
+        this.service = s;
+    }
+
+    /* ========== CRUD ========== */
 
     @GetMapping
     public List<Item> listar(){
@@ -84,6 +131,7 @@ class ItemController {
             item.quantidade = novo.quantidade;
             item.quantidadeMinima = novo.quantidadeMinima;
             item.ultimaEntrada = novo.ultimaEntrada;
+
             return ResponseEntity.ok(service.salvar(item));
         }).orElse(ResponseEntity.notFound().build());
     }
@@ -93,4 +141,25 @@ class ItemController {
         service.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    /* ========== ENTRADA MATERIAL ========== */
+    @PutMapping("/{id}/entrada")
+    public ResponseEntity<?> entrada(@PathVariable Long id, @RequestParam int quantidade){
+        try{
+            return ResponseEntity.ok(service.entrada(id, quantidade));
+        } catch(Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    /* ========== SAÍDA MATERIAL ========== */
+    @PutMapping("/{id}/saida")
+    public ResponseEntity<?> saida(@PathVariable Long id, @RequestParam int quantidade){
+        try{
+            return ResponseEntity.ok(service.saida(id, quantidade));
+        } catch(Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }
